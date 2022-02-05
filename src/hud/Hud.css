@@ -1,0 +1,58 @@
+.elem {
+	margin: 0;
+	padding: 6pt 12pt;
+	white-space: nowrap;
+}
+
+#hud-container {
+	font-family: 'Rubik', sans-serif;
+	text-align: center;
+	font-size: 42pt;
+	color: white;
+	
+	margin: 0;
+	padding: 0;
+	
+	background-color: rgba(0,0,0,0);
+
+	display: flex;
+	justify-content: center;
+    height: 63pt;
+}
+
+#hud-container > img {
+    display: inline-block;
+    height: 100%;
+    width: auto;
+}
+
+#red-team {
+	background-color: #FF0000E6;
+}
+#red-score {
+	background-color: #AA0000E6;
+}
+#blue-team {
+	background-color: #0000FFE6;
+}
+#blue-score {
+	background-color: #0000AAE6;
+}
+#red-icon {
+    background-color: #FF0000E6;
+}
+#blue-icon {
+    background-color: #0000FFE6;
+}
+
+#waiting-container {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+#waiting {
+    font-size: 64pt;
+    white-space: nowrap;
+}

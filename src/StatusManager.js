@@ -15,13 +15,13 @@ function StatusManager() {
             setAuth({ auth: r.ok });
         });
 
-        fetch("/icon_map")
+        fetch("/public/icon_map.json")
             .then(r => r.json())
             .then(json => {
                 setIconMap(json);
             });
 
-        fetch("/data")
+        fetch("/api/data")
             .then(r => r.json())
             .then(json => {
                 setStatus(json);
