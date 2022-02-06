@@ -1,7 +1,5 @@
 import React from 'react';
 
-import './Hud.css';
-
 function Hud() {
     const [showHud, setShowHud] = React.useState(null);
     const [redTeam, setRedTeam] = React.useState(null);
