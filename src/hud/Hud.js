@@ -26,7 +26,7 @@ function Hud() {
             const WS_ENDPOINT = (() => {
                 let url = new URL(document.URL);
                 url.protocol = "ws:";
-                url.pathname = "/";
+                url.pathname = "/wsapp/";
 
                 return url;
             })();
