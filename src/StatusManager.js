@@ -15,7 +15,7 @@ function StatusManager() {
             setAuth({ auth: r.ok });
         });
 
-        fetch("/public/icon_map.json")
+        fetch("/icon_map.json")
             .then(r => r.json())
             .then(json => {
                 setIconMap(json);

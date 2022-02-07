@@ -1,0 +1,36 @@
+{
+    "names": [
+        "20 Racecar",
+        "Amnesty",
+        "Apemen",
+        "Bapemen",
+        "Big Dogs",
+        "Bliss",
+        "Deep Nythh",
+        "Depth Guard",
+        "Divinity",
+        "Fat Monkey Clan",
+        "Mug Maniacs",
+        "O59",
+        "Oligarchy",
+        "Seamen",
+        "Tommy Team",
+        "Tyrone"
+    ],
+    "icons": {
+        "20racecar": "/icons/racecar.png",
+        "apemen": "/icons/apemen.png",
+        "bapemen": "/icons/apemen.png",
+        "bigdogs": "/icons/big_dogs.png",
+        "bliss": "/icons/bliss.png",
+        "deepnythh": "/icons/deep_nythh.png",
+        "depthguard": "/icons/depth_guard.png",
+        "divinity": "/icons/divinity.png",
+        "fatmonkeyclan": "/icons/fat_monkey_clan.png",
+        "mugmaniacs": "/icons/mug.png",
+        "o59": "/icons/o59.png",
+        "seamen": "/icons/apemen.png",
+        "tommyteam": "/icons/tommy_team.png",
+        "tyrone": "/icons/tyrone.png"
+    }
+}

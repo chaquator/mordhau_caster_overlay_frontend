@@ -31,7 +31,7 @@ function Hud() {
                 return url;
             })();
 
-            await fetch("/public/icon_map.json")
+            await fetch("/icon_map.json")
                 .then(r => r.json())
                 .then(json => {
                     setIconMap(json);
@@ -103,7 +103,7 @@ function Hud() {
     const iconSrc = name => {
         if (!iconMap) return null;
         if (iconMap.icons) {
-            return iconMap.icons[teamNameLookup(name ?? "")] ?? "/public/icons/default.png";
+            return iconMap.icons[teamNameLookup(name ?? "")] ?? "/icons/default.png";
         }
         return null;
     };
