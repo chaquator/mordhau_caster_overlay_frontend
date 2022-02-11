@@ -118,12 +118,12 @@ function Hud() {
 
     return (
         <div id="hud-container">
-            <img style={displayStyle} id="red-icon" src={iconSrc(redTeam)} />
+            <img style={displayStyle} id="red-icon" alt="icon" src={iconSrc(redTeam)} />
             <span style={styleWidthAdjusted(widthTeamRed)} ref={redTeamElem} id="red-team" className="elem">{redTeam}</span>
             <span style={styleWidthAdjusted(widthScoreRed)} ref={redScoreElem} id="red-score" className="elem">{redScore ?? 0}</span>
             <span style={styleWidthAdjusted(widthScoreBlue)} ref={blueScoreElem} id="blue-score" className="elem">{blueScore ?? 0}</span>
             <span style={styleWidthAdjusted(widthTeamBlue)} ref={blueTeamElem} id="blue-team" className="elem">{blueTeam}</span>
-            <img style={displayStyle} id="blue-icon" src={iconSrc(blueTeam)} />
+            <img style={displayStyle} id="blue-icon" alt="icon" src={iconSrc(blueTeam)} />
         </div>
     );
 };

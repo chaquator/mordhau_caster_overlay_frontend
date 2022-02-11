@@ -132,7 +132,7 @@ function KeyElem({ keyVal, deleteCb }) {
         deleteCb(keyVal);
     }
     const handleCopy = () => {
-        navigator.clipboard.writeText(keyVal);
+        window.prompt("Copy this key:", keyVal);
     }
     return (
         <div>
