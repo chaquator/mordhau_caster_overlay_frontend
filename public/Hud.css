@@ -1,6 +1,13 @@
-body {
+html, body {
 	background-color: rgba(0,0,0,0);
 	margin: 0;
+    height: 100%;
+}
+
+#root {
+    margin: 0;
+    padding: 0;
+    height: 100%;
 }
 
 .elem {
@@ -8,18 +15,28 @@ body {
 	white-space: nowrap;
 }
 
-#hud-container {
+.flex-container {
+    height: 100%;
+
 	font-family: 'Rubik', sans-serif;
 	text-align: center;
 	font-size: 42pt;
 	color: white;
-	
-	margin: 0;
-	padding: 0;
 
-	display: flex;
-	justify-content: center;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    justify-content: center;
+}
+
+#hud-container {
     height: 63pt;
+}
+
+#intermission-container {
+    flex-direction: column;
+    align-items: center;
 }
 
 #hud-container > img {
@@ -45,16 +62,4 @@ body {
 }
 #blue-icon {
     background-color: #0000FFE6;
-}
-
-#waiting-container {
-    display: flex;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-}
-
-#waiting {
-    font-size: 64pt;
-    white-space: nowrap;
 }
