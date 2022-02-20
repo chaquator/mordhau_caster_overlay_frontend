@@ -80,9 +80,9 @@ function Hud() {
     };
 
     const handleStartPlaying = () => {
-        setTimeout(() => {
+        requestAnimationFrame(() => {
             setVideoMuted(false);
-        }, 250);
+        });
     }
 
     React.useEffect(() => {
@@ -99,6 +99,13 @@ function Hud() {
         return null;
     };
 
+    const lookupAuthor = author => {
+        if (!author) return '';
+        if (!playerNameMap) return '';
+
+        return playerNameMap[author];
+    };
+
     const hudContainer = () => (
         <div className="flex-container" id="hud-container">
             <img id="red-icon" alt="icon" src={iconSrc(redTeam)} />
@@ -110,30 +117,26 @@ function Hud() {
         </div>
     );
 
-    const lookupAuthor = author => {
-        if (!author) return '';
-        if (!playerNameMap) return '';
-
-        return playerNameMap[author];
-    };
-
     const intermissionScreen = () => (
         <div className="flex-container" id="intermission-container">
             <div>Intermission</div>
-            <ReactPlayer
-                id="video-player"
-                width="75%" height="75%"
-                url={currentRecord?.url}
-                volume="0.4"
-                muted={videoMuted}
-                playing={true}
-                controls={true}
-                onEnded={randomVideo}
-                onStart={handleStartPlaying}
-            />
-            <div>Montage by: {lookupAuthor(currentRecord?.author)}</div>
-            <div>Next Match: {redTeam} v. {blueTeam}</div>
-        </div>
+            <div className="small">Montage by: {lookupAuthor(currentRecord?.author)}</div>
+            <div className="flex-container" id="video-container">
+                <ReactPlayer
+                    id="video-player"
+                    width="100%" height="100%"
+                    url={currentRecord?.url}
+                    volume="0.125"
+                    muted={videoMuted}
+                    playing={true}
+                    controls={true}
+                    onEnded={randomVideo}
+                    onStart={handleStartPlaying}
+                />
+            </div>
+            <div className="small">Up next:</div>
+            <div>{redTeam} v. {blueTeam}</div>
+        </div >
     );
 
     return showHud ? hudContainer() : intermissionScreen();
