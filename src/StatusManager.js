@@ -78,14 +78,14 @@ function StatusManager() {
 }
 
 function StatusForm({ status, iconMap, updateCb }) {
-    const [showHud, setShowHud] = React.useState(true);
+    const [intermissionMode, setIntermissionMode] = React.useState(true);
     const [redTeam, setRedTeam] = React.useState('');
     const [redScore, setRedScore] = React.useState(0);
     const [blueTeam, setBlueTeam] = React.useState('');
     const [blueScore, setBlueScore] = React.useState(0);
 
     React.useEffect(() => {
-        if (status.show_hud) setShowHud(status.show_hud);
+        if (status.show_hud) setIntermissionMode(!status.show_hud);
         if (status.hud) {
             const hud = status.hud;
             if (hud.red_team) setRedTeam(hud.red_team);
@@ -99,7 +99,7 @@ function StatusForm({ status, iconMap, updateCb }) {
         e.preventDefault();
 
         updateCb({
-            show_hud: showHud,
+            show_hud: !intermissionMode,
             hud: {
                 red_team: redTeam,
                 red_score: redScore,
@@ -119,8 +119,8 @@ function StatusForm({ status, iconMap, updateCb }) {
 
     return (
         <form onSubmit={handleSubmit}>
-            <label>Show hud: <input type="checkbox" name="showHud" checked={showHud}
-                onChange={_ => setShowHud(!showHud)} /></label> <br />
+            <label>Intermission: <input type="checkbox" name="showHud" checked={intermissionMode}
+                onChange={_ => setIntermissionMode(!intermissionMode)} /></label> <br />
             <label>
                 Red team:
                 <select name="redTeam" value={redTeam} onChange={e => setRedTeam(e.target.value)}>
