@@ -24,18 +24,56 @@ function Hud() {
     const [currentRecord, setCurrentRecord] = React.useState(null);
     const [videoMuted, setVideoMuted] = React.useState(null);
 
+    const initWs = () => {
+        const WS_ENDPOINT = (() => {
+            let url = new URL(document.URL);
+            url.protocol = "ws:";
+            url.pathname = "/wsapp/";
+
+            return url;
+        })();
+
+        const ws = new WebSocket(WS_ENDPOINT);
+        ws.addEventListener("message", e => {
+            const obj = JSON.parse(e.data);
+            setShowHud(obj.show_hud);
+            if (obj.hud) {
+                const hud = obj.hud;
+                setRedTeam(hud.red_team);
+                setRedScore(hud.red_score);
+                setBlueTeam(hud.blue_team);
+                setBlueScore(hud.blue_score);
+            }
+        });
+        ws.addEventListener("close", ev => {
+            console.log(ev.reason);
+        });
+    };
+
+    const randomVideo = () => {
+        if (!intermissionRecords) return;
+
+        const randomRecord = intermissionRecords[Math.floor(Math.random() * intermissionRecords.length)];
+        setCurrentRecord(randomRecord);
+        setVideoMuted(true);
+    };
+
+    const handleStartPlaying = () => {
+        requestAnimationFrame(() => {
+            setVideoMuted(false);
+        });
+    }
+
+    const onVidError = () => {
+        console.error(arguments);
+        console.error(currentRecord);
+        randomVideo();
+    }
+
     React.useEffect(() => {
         (async () => {
             // Wait for font to load
             await document.fonts.load("1em Rubik");
-
-            const WS_ENDPOINT = (() => {
-                let url = new URL(document.URL);
-                url.protocol = "ws:";
-                url.pathname = "/wsapp/";
-
-                return url;
-            })();
 
             fetch("/intermission_records.json")
                 .then(r => r.json())
@@ -56,38 +94,9 @@ function Hud() {
                     setIconMap(json);
                 });
 
-            const ws = new WebSocket(WS_ENDPOINT);
-            ws.addEventListener("message", e => {
-                const obj = JSON.parse(e.data);
-                setShowHud(obj.show_hud);
-                if (obj.hud) {
-                    const hud = obj.hud;
-                    setRedTeam(hud.red_team);
-                    setRedScore(hud.red_score);
-                    setBlueTeam(hud.blue_team);
-                    setBlueScore(hud.blue_score);
-                }
-            });
+            initWs();
         })();
     }, []);
-
-    const randomVideo = () => {
-        if (!intermissionRecords) return;
-
-        const randomRecord = intermissionRecords[Math.floor(Math.random() * intermissionRecords.length)];
-        setCurrentRecord(randomRecord);
-        setVideoMuted(true);
-    };
-
-    const handleStartPlaying = () => {
-        requestAnimationFrame(() => {
-            setVideoMuted(false);
-        });
-    }
-
-    React.useEffect(() => {
-        randomVideo();
-    }, [intermissionRecords]);
 
     const teamNameLookup = s => s.toLowerCase().replace(/ */g, "");
 
@@ -126,12 +135,13 @@ function Hud() {
                     id="video-player"
                     width="100%" height="100%"
                     url={currentRecord?.url}
-                    volume="0.125"
+                    volume={0.125}
                     muted={videoMuted}
                     playing={true}
                     controls={true}
                     onEnded={randomVideo}
                     onStart={handleStartPlaying}
+                    onError={onVidError}
                 />
             </div>
             <div className="small">Up next:</div>
