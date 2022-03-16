@@ -139,7 +139,7 @@ function Hud() {
                     id="video-player"
                     width="100%" height="100%"
                     url={currentRecord?.url}
-                    volume={0.125}
+                    volume="0.125"
                     muted={videoMuted}
                     playing={true}
                     controls={true}
