@@ -55,6 +55,7 @@ function Hud() {
 
         const randomRecord = intermissionRecords[Math.floor(Math.random() * intermissionRecords.length)];
         setCurrentRecord(randomRecord);
+        console.log("Playing", randomRecord);
         setVideoMuted(true);
     };
 
@@ -79,7 +80,6 @@ function Hud() {
                 .then(r => r.json())
                 .then(json => {
                     setIntermissionRecords(json);
-                    randomVideo();
                 });
 
             fetch("/names.json")
@@ -97,6 +97,10 @@ function Hud() {
             initWs();
         })();
     }, []);
+
+    React.useEffect(() => {
+        randomVideo();
+    }, [intermissionRecords]);
 
     const teamNameLookup = s => s.toLowerCase().replace(/ */g, "");
 
