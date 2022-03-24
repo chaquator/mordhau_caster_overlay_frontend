@@ -3,14 +3,15 @@
         "Ambition",
         "Amnesty",
         "Apemen",
+        "Apemen Academy",
         "Big Dogs",
         "Bliss",
+        "Chaombridge",
         "Checkmate",
         "Deep Nythh",
         "Depth Guard",
         "Divinity",
         "Epitaph",
-        "Eulogy",
         "Fat Monkey Clan",
         "Friend Team",
         "Hrii Chasm",
@@ -25,9 +26,12 @@
         "Seamen",
         "Stabs Suck",
         "Suckspa",
+        "Syndicate",
         "Tank Gaming",
         "Tyrone",
-        "Women"
+        "Velocity",
+        "Women",
+        "Xenon"
     ],
     "icons": {
         "amnesty": "/icons/amnesty.png",
@@ -40,6 +44,7 @@
         "divinity": "/icons/divinity.png",
         "fatmonkeyclan": "/icons/fat_monkey_clan.png",
         "hriichasm": "/icons/hrii_chasm.png",
+        "mimbre": "/icons/mimbre.png",
         "minimugs": "/icons/mini_mugs.png",
         "mugmaniacs": "/icons/mug.png",
         "nempest": "/icons/nempest.png",
@@ -47,7 +52,7 @@
         "raw": "/icons/raw.png",
         "seamen": "/icons/seamen.png",
         "stabssuck": "/icons/stabs_suck.png",
-        "tommyteam": "/icons/tommy_team.png",
+        "syndicate": "/icons/tommy_team.png",
         "tyrone": "/icons/tyrone.png",
         "women": "/icons/women.png"
     }

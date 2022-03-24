@@ -55,7 +55,9 @@ function Hud() {
 
         const randomRecord = intermissionRecords[Math.floor(Math.random() * intermissionRecords.length)];
         setCurrentRecord(randomRecord);
+
         console.log("Playing", randomRecord);
+
         setVideoMuted(true);
     };
 
@@ -79,7 +81,19 @@ function Hud() {
             fetch("/intermission_records.json")
                 .then(r => r.json())
                 .then(json => {
-                    setIntermissionRecords(json);
+                    const bad_vids = [
+                        "https://www.youtube.com/watch?v=IIJbwAZXENk",
+                        "https://youtu.be/G2DeINClfPQ",
+                        "https://www.youtube.com/watch?v=UlOyO44Kxow",
+                        "https://www.youtube.com/watch?v=iKaeTY30K5c",
+                        "https://www.youtube.com/watch?v=COizRQLSRrE",
+                        "https://youtu.be/zarF50ByiIU",
+                        "https://www.youtube.com/watch?v=jaR2vsqdi1E",
+                        "https://youtu.be/WodHFGhlH5w",
+                        "https://youtu.be/GKXMUxZJk9k"
+                    ]
+                    const records = json.filter(record => { return !(bad_vids.includes(record?.url)); });
+                    setIntermissionRecords(records);
                 });
 
             fetch("/names.json")
