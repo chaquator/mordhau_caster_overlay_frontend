@@ -33,7 +33,7 @@
         "Tank Gaming",
         "Tyrone",
         "Velocity",
-        "Women",
+        "Women"
     ],
     "icons": {
         "amnesty": "/icons/amnesty.png",
@@ -56,6 +56,7 @@
         "stabssuck": "/icons/stabs_suck.png",
         "syndicate": "/icons/tommy_team.png",
         "tyrone": "/icons/tyrone.png",
+        "velocity": "/icons/velocity.png",
         "women": "/icons/women.png"
     }
 }
