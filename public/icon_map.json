@@ -3,8 +3,8 @@
         "20Richard",
         "Ambition",
         "Amnesty",
-        "Apemen",
         "Apemen Academy",
+        "Apemen",
         "Big Dogs",
         "Bliss",
         "Capemen",
@@ -36,6 +36,7 @@
         "Women"
     ],
     "icons": {
+        "20richard": "/icons/20richard.png",
         "amnesty": "/icons/amnesty.png",
         "apemen": "/icons/apemen.png",
         "bigdogs": "/icons/big_dogs.png",
@@ -44,6 +45,7 @@
         "deepnythh": "/icons/deep_nythh.png",
         "depthguard": "/icons/depth_guard.png",
         "divinity": "/icons/divinity.png",
+        "eulogy": "/icons/eulogy.png",
         "fatmonkeyclan": "/icons/fat_monkey_clan.png",
         "hriichasm": "/icons/hrii_chasm.png",
         "mimbre": "/icons/mimbre.png",
@@ -54,6 +56,7 @@
         "raw": "/icons/raw.png",
         "seamen": "/icons/seamen.png",
         "stabssuck": "/icons/stabs_suck.png",
+        "suspa": "/icons/suspa.png",
         "syndicate": "/icons/tommy_team.png",
         "tyrone": "/icons/tyrone.png",
         "velocity": "/icons/velocity.png",
