@@ -2,7 +2,6 @@
     "names": [
         "20Richard",
         "Ambition",
-        "Amnesty",
         "Apemen Academy",
         "Apemen",
         "Big Dogs",
@@ -21,7 +20,6 @@
         "Kings Guard",
         "Mimbre",
         "Mug Maniacs",
-        "Nempest",
         "Newport 100s",
         "Pariah",
         "Polaris",
@@ -40,7 +38,6 @@
     "icons": {
         "20richard": "/icons/20richard.png",
         "ambition": "/icons/ambition.png",
-        "amnesty": "/icons/amnesty.png",
         "apemen": "/icons/apemen.png",
         "bigdogs": "/icons/big_dogs.png",
         "bliss": "/icons/bliss.png",
@@ -54,7 +51,6 @@
         "kingsguard": "/icons/kingsguard.png",
         "mimbre": "/icons/mimbre.png",
         "mugmaniacs": "/icons/mug.png",
-        "nempest": "/icons/nempest.png",
         "newports100s": "/icons/newport_128.gif",
         "polaris": "/icons/polaris.png",
         "racecar": "/icons/racecar.png",
