@@ -17,22 +17,20 @@
         "Fat Monkey Clan",
         "Friend Team",
         "Hrii Chasm",
+        "Guh",
         "Kings Guard",
         "Mimbre",
-        "Mug Maniacs",
         "Newport 100s",
-        "Pariah",
         "Polaris",
+        "Pussy Wranglerz",
         "Racecar",
         "Raw",
         "Redux",
         "Stabs Suck",
         "Suspa",
         "Syndicate",
-        "Tank Gaming",
         "Transcendance",
         "Tyrone",
-        "Velocity",
         "Women"
     ],
     "icons": {
@@ -50,7 +48,6 @@
         "hriichasm": "/icons/hrii_chasm.png",
         "kingsguard": "/icons/kingsguard.png",
         "mimbre": "/icons/mimbre.png",
-        "mugmaniacs": "/icons/mug.png",
         "newport100s": "/icons/newports_128.gif",
         "polaris": "/icons/polaris.png",
         "racecar": "/icons/racecar.png",
@@ -60,7 +57,6 @@
         "syndicate": "/icons/tommy_team.png",
         "transcendance": "/icons/mini_mugs.png",
         "tyrone": "/icons/tyrone.png",
-        "velocity": "/icons/velocity.png",
         "women": "/icons/women.png"
     }
 }
