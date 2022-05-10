@@ -78,7 +78,7 @@ function Hud() {
             // Wait for font to load
             await document.fonts.load("1em Rubik");
 
-            fetch("/intermission_records.json")
+            fetch("/public/intermission_records.json")
                 .then(r => r.json())
                 .then(json => {
                     const bad_vids = [
@@ -96,13 +96,13 @@ function Hud() {
                     setIntermissionRecords(records);
                 });
 
-            fetch("/names.json")
+            fetch("/public/names.json")
                 .then(r => r.json())
                 .then(json => {
                     setPlayerNameMap(json);
                 });
 
-            fetch("/icon_map.json")
+            fetch("/public/icon_map.json")
                 .then(r => r.json())
                 .then(json => {
                     setIconMap(json);
@@ -121,7 +121,7 @@ function Hud() {
     const iconSrc = name => {
         if (!iconMap) return null;
         if (iconMap.icons) {
-            return iconMap.icons[teamNameLookup(name ?? "")] ?? "/icons/default.png";
+            return iconMap.icons[teamNameLookup(name ?? "")] ?? "/public/icons/default.png";
         }
         return null;
     };
