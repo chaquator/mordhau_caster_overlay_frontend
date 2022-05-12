@@ -18,11 +18,10 @@ function Hud() {
     const [styleScoreRed, styleScoreBlue] = useWidthPair(elemScoreRed.current, elemScoreBlue.current, redScore, blueScore, showHud);
 
     const [iconMap, setIconMap] = React.useState(null);
-    const [playerNameMap, setPlayerNameMap] = React.useState(null);
-    const [intermissionRecords, setIntermissionRecords] = React.useState(null);
+    // const [intermissionRecords, setIntermissionRecords] = React.useState(null);
 
-    const [currentRecord, setCurrentRecord] = React.useState(null);
-    const [videoMuted, setVideoMuted] = React.useState(null);
+    // const [currentRecord, setCurrentRecord] = React.useState(null);
+    // const [videoMuted, setVideoMuted] = React.useState(null);
 
     const initWs = () => {
         const WS_ENDPOINT = (() => {
@@ -50,57 +49,45 @@ function Hud() {
         });
     };
 
-    const randomVideo = () => {
-        if (!intermissionRecords) return;
+    // const randomVideo = () => {
+    //     if (!intermissionRecords) return;
 
-        const randomRecord = intermissionRecords[Math.floor(Math.random() * intermissionRecords.length)];
-        setCurrentRecord(randomRecord);
+    //     // const randomRecord = intermissionRecords[Math.floor(Math.random() * intermissionRecords.length)];
+    //     const randomRecord = {
+    //         author: "Test",
+    //         video_id: "JB4jZlu2-rI"
+    //     }
+    //     setCurrentRecord(randomRecord);
 
-        console.log("Playing", randomRecord);
+    //     console.log("Playing", randomRecord);
 
-        setVideoMuted(true);
-    };
+    //     setVideoMuted(true);
+    // };
 
-    const handleStartPlaying = () => {
-        requestAnimationFrame(() => {
-            setVideoMuted(false);
-        });
-    }
+    // const handleStartPlaying = () => {
+    //     requestAnimationFrame(() => {
+    //         setVideoMuted(false);
+    //     });
+    // }
 
-    const onVidError = () => {
-        console.error(arguments);
-        console.error(currentRecord);
-        randomVideo();
-    }
+    // const onVidError = () => {
+    //     console.error(arguments);
+    //     console.error(currentRecord);
+    //     randomVideo();
+    // }
 
     React.useEffect(() => {
         (async () => {
             // Wait for font to load
             await document.fonts.load("1em Rubik");
 
-            fetch("/public/intermission_records.json")
-                .then(r => r.json())
-                .then(json => {
-                    const bad_vids = [
-                        "https://www.youtube.com/watch?v=IIJbwAZXENk",
-                        "https://youtu.be/G2DeINClfPQ",
-                        "https://www.youtube.com/watch?v=UlOyO44Kxow",
-                        "https://www.youtube.com/watch?v=iKaeTY30K5c",
-                        "https://www.youtube.com/watch?v=COizRQLSRrE",
-                        "https://youtu.be/zarF50ByiIU",
-                        "https://www.youtube.com/watch?v=jaR2vsqdi1E",
-                        "https://youtu.be/WodHFGhlH5w",
-                        "https://youtu.be/GKXMUxZJk9k"
-                    ]
-                    const records = json.filter(record => { return !(bad_vids.includes(record?.url)); });
-                    setIntermissionRecords(records);
-                });
+            // fetch("/public/intermission_records.json")
+            //     .then(r => r.json())
+            //     .then(json => {
+            //         console.log(json);
 
-            fetch("/public/names.json")
-                .then(r => r.json())
-                .then(json => {
-                    setPlayerNameMap(json);
-                });
+            //         setIntermissionRecords(json);
+            //     });
 
             fetch("/public/icon_map.json")
                 .then(r => r.json())
@@ -112,9 +99,9 @@ function Hud() {
         })();
     }, []);
 
-    React.useEffect(() => {
-        randomVideo();
-    }, [intermissionRecords]);
+    // React.useEffect(() => {
+    //     randomVideo();
+    // }, [intermissionRecords]);
 
     const teamNameLookup = s => s.toLowerCase().replace(/ */g, "");
 
@@ -124,13 +111,6 @@ function Hud() {
             return iconMap.icons[teamNameLookup(name ?? "")] ?? "/public/icons/default.png";
         }
         return null;
-    };
-
-    const lookupAuthor = author => {
-        if (!author) return '';
-        if (!playerNameMap) return '';
-
-        return playerNameMap[author];
     };
 
     const hudContainer = () => (
@@ -147,8 +127,19 @@ function Hud() {
     const intermissionScreen = () => (
         <div className="flex-container" id="intermission-container">
             <div>Intermission</div>
-            <div className="small">Montage by: {lookupAuthor(currentRecord?.author)}</div>
+            <div className="small">Up next:</div>
+            <div>{redTeam} v. {blueTeam}</div>
+        </div >
+    );
+
+    return showHud ? hudContainer() : intermissionScreen();
+};
+
+/*
+            <div className="small">Montage by: {currentRecord?.author}</div>
             <div className="flex-container" id="video-container">
+                <YoutubeEmbed id="video-player" embedId={currentRecord?.video_id} />
+            </div>
                 <ReactPlayer
                     id="video-player"
                     width="100%" height="100%"
@@ -161,13 +152,23 @@ function Hud() {
                     onStart={handleStartPlaying}
                     onError={onVidError}
                 />
-            </div>
-            <div className="small">Up next:</div>
-            <div>{redTeam} v. {blueTeam}</div>
-        </div >
-    );
 
-    return showHud ? hudContainer() : intermissionScreen();
-};
+*/
+
+// TODO: youtube embed api
+
+// retrieve from https://dev.to/bravemaster619/simplest-way-to-embed-a-youtube-video-in-your-react-app-3bk2
+// const YoutubeEmbed = ({ embedId }) => (
+//     <iframe
+//         width="100%"
+//         height="100%"
+//         src={`https://www.youtube.com/embed/${embedId}?autoplay=1&mute=1&enablejsapi=1`}
+//         frameBorder="0"
+//         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+//         allowFullScreen
+//         title="Embedded youtube"
+//     />
+// );
+
 
 export default Hud;
