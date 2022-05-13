@@ -1,6 +1,6 @@
 import React from 'react';
+import YouTube from 'react-youtube';
 import useWidthPair from '../useWidthPair.js';
-import ReactPlayer from 'react-player';
 
 function Hud() {
     const [showHud, setShowHud] = React.useState(null);
@@ -18,10 +18,9 @@ function Hud() {
     const [styleScoreRed, styleScoreBlue] = useWidthPair(elemScoreRed.current, elemScoreBlue.current, redScore, blueScore, showHud);
 
     const [iconMap, setIconMap] = React.useState(null);
-    // const [intermissionRecords, setIntermissionRecords] = React.useState(null);
+    const [intermissionRecords, setIntermissionRecords] = React.useState(null);
 
-    // const [currentRecord, setCurrentRecord] = React.useState(null);
-    // const [videoMuted, setVideoMuted] = React.useState(null);
+    const [currentRecord, setCurrentRecord] = React.useState(null);
 
     const initWs = () => {
         const WS_ENDPOINT = (() => {
@@ -49,45 +48,39 @@ function Hud() {
         });
     };
 
-    // const randomVideo = () => {
-    //     if (!intermissionRecords) return;
+    const onVidEnd = () => {
+        if (!intermissionRecords) return;
 
-    //     // const randomRecord = intermissionRecords[Math.floor(Math.random() * intermissionRecords.length)];
-    //     const randomRecord = {
-    //         author: "Test",
-    //         video_id: "JB4jZlu2-rI"
-    //     }
-    //     setCurrentRecord(randomRecord);
+        const randomRecord = intermissionRecords[Math.floor(Math.random() * intermissionRecords.length)];
+        setCurrentRecord(randomRecord);
 
-    //     console.log("Playing", randomRecord);
+        console.log("Playing", randomRecord);
+    };
 
-    //     setVideoMuted(true);
-    // };
+    const onVidPlay = e => {
+        requestAnimationFrame(() => {
+            e.target.unMute();
+        });
+    }
 
-    // const handleStartPlaying = () => {
-    //     requestAnimationFrame(() => {
-    //         setVideoMuted(false);
-    //     });
-    // }
-
-    // const onVidError = () => {
-    //     console.error(arguments);
-    //     console.error(currentRecord);
-    //     randomVideo();
-    // }
+    const onVidError = () => {
+        console.error(arguments);
+        console.error(currentRecord);
+        onVidEnd();
+    }
 
     React.useEffect(() => {
         (async () => {
             // Wait for font to load
             await document.fonts.load("1em Rubik");
 
-            // fetch("/public/intermission_records.json")
-            //     .then(r => r.json())
-            //     .then(json => {
-            //         console.log(json);
+            fetch("/public/intermission_records.json")
+                .then(r => r.json())
+                .then(json => {
+                    console.log(json);
 
-            //         setIntermissionRecords(json);
-            //     });
+                    setIntermissionRecords(json);
+                });
 
             fetch("/public/icon_map.json")
                 .then(r => r.json())
@@ -99,9 +92,9 @@ function Hud() {
         })();
     }, []);
 
-    // React.useEffect(() => {
-    //     randomVideo();
-    // }, [intermissionRecords]);
+    React.useEffect(() => {
+        onVidEnd();
+    }, [intermissionRecords]);
 
     const teamNameLookup = s => s.toLowerCase().replace(/ */g, "");
 
@@ -127,6 +120,24 @@ function Hud() {
     const intermissionScreen = () => (
         <div className="flex-container" id="intermission-container">
             <div>Intermission</div>
+            <div className="small">Montage by: {currentRecord?.author}</div>
+            <div className="flex-container" id="video-container">
+                <YouTube
+                    videoId={currentRecord?.video_id}
+                    id="video-player"
+                    opts={{
+                        height: "100%",
+                        width: "100%",
+                        playerVars: {
+                            autoplay: 1,
+                            mute: 1
+                        }
+                    }}
+                    onPlay={onVidPlay}
+                    onEnd={onVidEnd}
+                    onError={onVidError}
+                />
+            </div>
             <div className="small">Up next:</div>
             <div>{redTeam} v. {blueTeam}</div>
         </div >
@@ -135,40 +146,6 @@ function Hud() {
     return showHud ? hudContainer() : intermissionScreen();
 };
 
-/*
-            <div className="small">Montage by: {currentRecord?.author}</div>
-            <div className="flex-container" id="video-container">
-                <YoutubeEmbed id="video-player" embedId={currentRecord?.video_id} />
-            </div>
-                <ReactPlayer
-                    id="video-player"
-                    width="100%" height="100%"
-                    url={currentRecord?.url}
-                    volume="0.125"
-                    muted={videoMuted}
-                    playing={true}
-                    controls={true}
-                    onEnded={randomVideo}
-                    onStart={handleStartPlaying}
-                    onError={onVidError}
-                />
-
-*/
-
-// TODO: youtube embed api
-
-// retrieve from https://dev.to/bravemaster619/simplest-way-to-embed-a-youtube-video-in-your-react-app-3bk2
-// const YoutubeEmbed = ({ embedId }) => (
-//     <iframe
-//         width="100%"
-//         height="100%"
-//         src={`https://www.youtube.com/embed/${embedId}?autoplay=1&mute=1&enablejsapi=1`}
-//         frameBorder="0"
-//         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-//         allowFullScreen
-//         title="Embedded youtube"
-//     />
-// );
-
+// TODO: switch to youtube playlist instead of intermission_records.json
 
 export default Hud;
