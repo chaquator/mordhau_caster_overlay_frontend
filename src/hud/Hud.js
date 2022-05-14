@@ -1,5 +1,4 @@
 import React from 'react';
-import YouTube from 'react-youtube';
 import useWidthPair from '../useWidthPair.js';
 
 function Hud() {
@@ -65,11 +64,11 @@ function Hud() {
         });
     }
 
-    const onVidError = () => {
-        console.error(arguments);
-        console.error(currentRecord);
-        onVidEnd();
-    }
+    // const onVidError = () => {
+    //     console.error(arguments);
+    //     console.error(currentRecord);
+    //     onVidEnd();
+    // }
 
     React.useEffect(() => {
         (async () => {
@@ -138,7 +137,7 @@ function Hud() {
     // };
 
     const VidReg = ({ record }) => {
-        return <video ref={vidRef} id="video-player" autoPlay controls muted onPlay={onVidPlay}>
+        return <video ref={vidRef} id="video-player" autoPlay controls muted onPlay={onVidPlay} onEnded={onVidEnd}>
             <source src={record?.url} type="video/mp4" />
         </video >
     };
