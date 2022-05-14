@@ -22,6 +22,8 @@ function Hud() {
 
     const [currentRecord, setCurrentRecord] = React.useState(null);
 
+    const vidRef = React.useRef(null);
+
     const initWs = () => {
         const WS_ENDPOINT = (() => {
             let url = new URL(document.URL);
@@ -59,7 +61,7 @@ function Hud() {
 
     const onVidPlay = e => {
         requestAnimationFrame(() => {
-            e.target.unMute();
+            e.target.muted = false;
         });
     }
 
@@ -74,7 +76,7 @@ function Hud() {
             // Wait for font to load
             await document.fonts.load("1em Rubik");
 
-            fetch("/public/intermission_records.json")
+            fetch("/video/intermission_records.json")
                 .then(r => r.json())
                 .then(json => {
                     console.log(json);
@@ -117,26 +119,36 @@ function Hud() {
         </div>
     );
 
+    // const VidYt = ({ record }) => {
+    //     return <YouTube
+    //         videoId={record?.video_id}
+    //         id="video-player"
+    //         opts={{
+    //             height: "100%",
+    //             width: "100%",
+    //             playerVars: {
+    //                 autoplay: 1,
+    //                 mute: 1
+    //             }
+    //         }}
+    //         onPlay={onVidPlay}
+    //         onEnd={onVidEnd}
+    //         onError={onVidError}
+    //     />
+    // };
+
+    const VidReg = ({ record }) => {
+        return <video ref={vidRef} id="video-player" autoPlay controls muted onPlay={onVidPlay}>
+            <source src={record?.url} type="video/mp4" />
+        </video >
+    };
+
     const intermissionScreen = () => (
         <div className="flex-container" id="intermission-container">
             <div>Intermission</div>
             <div className="small">Montage by: {currentRecord?.author}</div>
             <div className="flex-container" id="video-container">
-                <YouTube
-                    videoId={currentRecord?.video_id}
-                    id="video-player"
-                    opts={{
-                        height: "100%",
-                        width: "100%",
-                        playerVars: {
-                            autoplay: 1,
-                            mute: 1
-                        }
-                    }}
-                    onPlay={onVidPlay}
-                    onEnd={onVidEnd}
-                    onError={onVidError}
-                />
+                <VidReg record={currentRecord} />
             </div>
             <div className="small">Up next:</div>
             <div>{redTeam} v. {blueTeam}</div>
