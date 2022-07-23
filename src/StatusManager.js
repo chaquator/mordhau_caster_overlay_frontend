@@ -5,7 +5,6 @@ import LogoutForm from './LogoutForm.js'
 function StatusManager() {
     const [auth, setAuth] = React.useState(null);
     const [status, setStatus] = React.useState({});
-    const [iconMap, setIconMap] = React.useState({});
 
     React.useEffect(() => {
         fetch("/api/status/auth", {
@@ -14,12 +13,6 @@ function StatusManager() {
         }).then(r => {
             setAuth({ auth: r.ok });
         });
-
-        fetch("/public/icon_map.json")
-            .then(r => r.json())
-            .then(json => {
-                setIconMap(json);
-            });
 
         fetch("/api/data")
             .then(r => r.json())
@@ -71,13 +64,13 @@ function StatusManager() {
     return (
         <div>
             <h1>Status Manager</h1>
-            <StatusForm status={status} iconMap={iconMap} updateCb={handleStatusUpdate} />
+            <StatusForm status={status} updateCb={handleStatusUpdate} />
             {auth_elem()}
         </div>
     );
 }
 
-function StatusForm({ status, iconMap, updateCb }) {
+function StatusForm({ status, updateCb }) {
     const [intermissionMode, setIntermissionMode] = React.useState(true);
     const [redTeam, setRedTeam] = React.useState('');
     const [redScore, setRedScore] = React.useState(0);
@@ -109,32 +102,20 @@ function StatusForm({ status, iconMap, updateCb }) {
         });
     }
 
-    const optionsList = React.useMemo(() => {
-        if (iconMap.names) {
-            return iconMap.names.map(name => {
-                return (<option key={name} value={name}>{name}</option>);
-            });
-        }
-    }, [iconMap]);
-
     return (
         <form onSubmit={handleSubmit}>
             <label>Intermission: <input type="checkbox" name="showHud" checked={intermissionMode}
                 onChange={_ => setIntermissionMode(!intermissionMode)} /></label> <br />
             <label>
                 Red team:
-                <select name="redTeam" value={redTeam} onChange={e => setRedTeam(e.target.value)}>
-                    {optionsList}
-                </select>
+                <input type="text" name="redTeam" value={redTeam} onChange={e => setRedTeam(e.target.value)}></input>
             </label> <br />
             <label>Red score: <input type="number" name="redScore" min="0" max="3" value={redScore}
                 onChange={e => setRedScore(parseInt(e.target.value))} /></label> <br />
 
             <label>
                 Blue team:
-                <select name="blueTeam" value={blueTeam} onChange={e => setBlueTeam(e.target.value)}>
-                    {optionsList}
-                </select>
+                <input type="text" name="blueTeam" value={blueTeam} onChange={e => setBlueTeam(e.target.value)}></input>
             </label> <br />
             <label>Blue score: <input type="number" name="blueScore" min="0" max="3"
                 value={blueScore} onChange={e => setBlueScore(e.target.value)} /></label> <br />
